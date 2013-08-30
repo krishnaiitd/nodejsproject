@@ -1,4 +1,6 @@
+==============================
 Blog project for M101JS
+=============================
 
 ./app.js - entry point
 ./package.json - npm package description
@@ -11,3 +13,9 @@ Getting started
 
 npm install
 node app.js
+==================
+nodejsproject
+===================
+
+Working with this project to build a blog using mongoDB and deploying it to heroku
+
