@@ -3,27 +3,23 @@ var crypto = require('crypto');
 /* The SessionsDAO must be constructed with a connected database object */
 function SessionsDAO(db) {
     "use strict";
-
     /* If this constructor is called without the "new" operator, "this" points
      * to the global object. Log a warning and call it correctly. */
     if (false === (this instanceof SessionsDAO)) {
         console.log('Warning: SessionsDAO constructor called without "new" operator');
         return new SessionsDAO(db);
     }
-
     var sessions = db.collection("sessions");
-
     this.startSession = function(username, callback) {
         "use strict";
-
         // Generate session id
         var current_date = (new Date()).valueOf().toString();
         var random = Math.random().toString();
         var session_id = crypto.createHash('sha1').update(current_date + random).digest('hex');
-
         // Create session document
-        var session = {'username': username, '_id': session_id}
-
+	// create current time in the format Y-m-d H:i:s
+	var logedIndateTime = new Date().toISOString().replace(/T/, ' ').replace(/\..+/,''); 
+        var session = {'username': username, '_id': session_id, 'login_at': logedIndateTime}
         // Insert session document
         sessions.insert(session, function (err, result) {
             "use strict";
